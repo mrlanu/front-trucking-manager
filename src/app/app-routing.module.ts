@@ -8,7 +8,7 @@ const routes: Routes = [
   {path: 'freights', component: FreightsComponent, children: [
       {path: '', component: FreightsListComponent},
       {path: 'new', component: FreightsEditComponent},
-      {path: 'edit/:id', component: FreightsEditComponent}
+      {path: 'edit/:freightId', component: FreightsEditComponent}
     ]}
 ];
 

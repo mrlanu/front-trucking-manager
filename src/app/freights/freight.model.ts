@@ -1,5 +1,9 @@
+import {Employee} from '../employee/employee.model';
+
 export interface Freight {
   freightId: number;
+  employee: Employee;
+  broker: string;
   date: Date;
   commodity: string;
   rate: number;

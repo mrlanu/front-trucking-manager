@@ -9,6 +9,7 @@ import {map} from 'rxjs/operators';
 export class FreightsService {
 
   freightsChanged = new Subject<Freight[]>();
+  freightChanged = new Subject<Freight>();
   baseUrl = environment.baseUrl;
 
   constructor(private httpClient: HttpClient) {}
@@ -19,10 +20,9 @@ export class FreightsService {
 
     this.httpClient.get(url)
       .pipe(map((data: any) => {
-        return data.content.map(fr => {
+        return data.content.map(freight => {
           return {
-            freightId: fr.freightId,
-            kind: fr.name
+            ...freight
           };
         });
       }))
@@ -41,4 +41,10 @@ export class FreightsService {
     });
   }
 
+  fetchFreightById(freightId: number) {
+    const url = this.baseUrl + '/freights/' + freightId;
+    this.httpClient.get(url).subscribe((freight: Freight) => {
+      this.freightChanged.next(freight);
+    });
+  }
 }

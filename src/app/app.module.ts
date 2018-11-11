@@ -13,6 +13,8 @@ import { FreightsListComponent } from './freights/freights-list/freights-list.co
 import { FreightsEditComponent } from './freights/freights-edit/freights-edit.component';
 import {FreightsService} from './freights/freights.service';
 import {HttpClientModule} from '@angular/common/http';
+import { EmployeeComponent } from './employee/employee.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import {HttpClientModule} from '@angular/common/http';
     SidenavListComponent,
     FreightsComponent,
     FreightsListComponent,
-    FreightsEditComponent
+    FreightsEditComponent,
+    EmployeeComponent
   ],
   imports: [
     MaterialModule,
@@ -29,7 +32,8 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [FreightsService],
   bootstrap: [AppComponent]
