@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FreightsService} from '../freights.service';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {Freight} from '../freight.model';
 
@@ -19,7 +19,9 @@ export class FreightsEditComponent implements OnInit, OnDestroy {
   kinds: String[] = ['Dry', 'Frozen', 'Chilled'];
   private componentSubs: Subscription[] = [];
 
-  constructor(private freightService: FreightsService, private route: ActivatedRoute) { }
+  constructor(private freightService: FreightsService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.componentSubs.push(this.route.params
@@ -68,6 +70,11 @@ export class FreightsEditComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.freightService.storeFreight(this.freightForm.value);
+  }
+
+  onCancel() {
+    this.freightForm.reset();
+    this.router.navigate(['freights']);
   }
 
   ngOnDestroy(): void {

@@ -63,7 +63,7 @@
   </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onSelectFreight(row)"></mat-row>
 
 </table>
 

@@ -3,6 +3,7 @@ import {Freight} from '../freight.model';
 import {FreightsService} from '../freights.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Subscription} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-freights-list',
@@ -17,7 +18,9 @@ export class FreightsListComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private freightsService: FreightsService) { }
+  constructor(private freightsService: FreightsService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.componentSubs.push(this.freightsService.freightsChanged
@@ -41,5 +44,9 @@ export class FreightsListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.componentSubs.forEach(subs => {
       subs.unsubscribe();
     });
+  }
+
+  onSelectFreight(row) {
+    this.router.navigate(['edit', row.freightId], {relativeTo: this.route});
   }
 }
