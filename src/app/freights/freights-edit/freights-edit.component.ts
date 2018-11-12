@@ -50,7 +50,8 @@ export class FreightsEditComponent implements OnInit, OnDestroy {
       'kind': new FormControl(''),
       'weight': new FormControl('', Validators.pattern(/^[1-9]+[0-9]*$/)),
       'pallets': new FormControl('', Validators.pattern(/^[1-9]+[0-9]*$/)),
-      'description': new FormControl('')
+      'description': new FormControl(''),
+      'employee': new FormControl('')
     });
   }
 
@@ -63,12 +64,15 @@ export class FreightsEditComponent implements OnInit, OnDestroy {
       pallets: freight.pallets,
       kind: freight.kind,
       description: freight.description,
-      commodity: freight.commodity
+      commodity: freight.commodity,
+      employee: freight.employee
     });
     this.isLoading = false;
   }
 
   onSubmit() {
+    this.freightForm.patchValue({employee: {employeeId: 1}});
+    console.log(this.freightForm.value);
     this.freightService.storeFreight(this.freightForm.value);
   }
 
