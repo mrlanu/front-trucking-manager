@@ -15,6 +15,7 @@ import {FreightsService} from './freights/freights.service';
 import {HttpClientModule} from '@angular/common/http';
 import { EmployeeComponent } from './employee/employee.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { FreightsManagerComponent } from './freights/freights-manager/freights-manager.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     FreightsComponent,
     FreightsListComponent,
     FreightsEditComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    FreightsManagerComponent
   ],
   imports: [
     MaterialModule,

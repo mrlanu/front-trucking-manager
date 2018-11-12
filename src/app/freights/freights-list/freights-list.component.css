@@ -13,3 +13,19 @@ mat-row:hover {
   cursor: pointer;
 }
 
+.mat-column-pallets {
+  max-width: 7%;
+}
+
+.mat-column-kind {
+  max-width: 7%;
+}
+
+.mat-column-weight {
+  max-width: 7%;
+}
+
+.mat-column-rate {
+  max-width: 7%;
+}
+

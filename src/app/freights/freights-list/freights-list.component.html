@@ -23,7 +23,7 @@
   <!-- Employee Column -->
   <ng-container matColumnDef="employee">
     <mat-header-cell *matHeaderCellDef> Dispatch </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.employee.lastName}} </mat-cell>
+    <mat-cell *matCellDef="let element">{{element.employee.firstName}} {{element.employee.lastName}}</mat-cell>
   </ng-container>
 
   <!-- Commodity Column -->
