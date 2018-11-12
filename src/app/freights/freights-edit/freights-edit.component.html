@@ -1,4 +1,4 @@
-<section class="load">
+<section class="load mat-elevation-z8">
   <div class="loading-indicator" *ngIf="isLoading">
     <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
   </div>
@@ -38,10 +38,10 @@
         </div>
       </div>
       <div fxLayout="row" fxLayoutGap="20px">
-        <button mat-mini-fab color="primary" (click)="onCancel()">
+        <button mat-mini-fab color="primary" (click)="onCancel()" [disabled]="freightForm.touched">
           <mat-icon>arrow_back</mat-icon>
         </button>
-        <button type="submit" mat-mini-fab color="primary" [disabled]="freightForm.invalid">
+        <button type="submit" mat-mini-fab color="primary" [disabled]="freightForm.invalid || freightForm.untouched">
           <mat-icon *ngIf="!editMode; else newMode">navigate_next</mat-icon>
           <ng-template #newMode>
             <mat-icon *ngIf="editMode">save_alt</mat-icon>

@@ -43,6 +43,7 @@ export class FreightsEditComponent implements OnInit, OnDestroy {
   private initForm() {
 
     this.freightForm = new FormGroup({
+      'freightId': new FormControl(''),
       'date': new FormControl(new Date()),
       'broker': new FormControl('', Validators.required),
       'commodity': new FormControl('', Validators.required),
@@ -57,6 +58,7 @@ export class FreightsEditComponent implements OnInit, OnDestroy {
 
   setFormValueForEditFreight(freight: Freight) {
     this.freightForm.setValue({
+      freightId: freight.freightId,
       date: freight.date,
       broker: freight.broker,
       rate: freight.rate,
@@ -71,9 +73,20 @@ export class FreightsEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.freightForm.patchValue({employee: {employeeId: 1}});
-    console.log(this.freightForm.value);
-    this.freightService.storeFreight(this.freightForm.value);
+    if (this.editMode) {
+      this.freightService.storeEditedFreight(this.freightForm.value).subscribe(result => {
+        console.log(result);
+        this.router.navigate(['freights']);
+      });
+    } else {
+      this.freightForm.patchValue({employee: {employeeId: 1}});
+      this.freightService.storeFreight(this.freightForm.value).subscribe(result => {
+        console.log(result);
+        this.router.navigate(['freights']);
+      }, err => {
+        console.log(err);
+      });
+    }
   }
 
   onCancel() {

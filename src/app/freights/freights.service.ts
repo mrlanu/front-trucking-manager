@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Freight} from './freight.model';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
@@ -33,11 +33,12 @@ export class FreightsService {
 
   storeFreight(freight: Freight) {
     const url = this.baseUrl + '/freights';
-    this.httpClient.post(url, freight).subscribe(result => {
-      console.log(result);
-    }, err => {
-      console.log(err);
-    });
+    return this.httpClient.post(url, freight);
+  }
+
+  storeEditedFreight(freight: Freight) {
+    const url = this.baseUrl + '/freights/' + freight.freightId ;
+    return this.httpClient.put(url, freight);
   }
 
   fetchFreightById(freightId: number) {
