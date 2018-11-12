@@ -28,7 +28,6 @@ export class FreightsService {
       }))
       .subscribe((freights: Freight[]) => {
         this.freightsChanged.next(freights);
-        console.log(freights);
     });
   }
 

@@ -1,0 +1,17 @@
+.container {
+  height: 400px;
+  overflow: auto;
+  width: 80%;
+  margin: 2rem auto;
+}
+
+table {
+  width: 95%;
+  margin: 1rem auto;
+}
+
+mat-row:hover {
+  background: #E5E8E8;
+  cursor: pointer;
+}
+
