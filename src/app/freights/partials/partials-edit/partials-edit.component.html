@@ -1,3 +1,51 @@
-<p>
-  partials-edit works!
-</p>
+<div>
+  <form [formGroup]="partialForm" fxLayout="column">
+    <div class="container" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="100px">
+      <div class="info" fxLayout="column" fxLayoutGap="10px">
+        <mat-form-field>
+          <input type="text" placeholder="Kind" formControlName="kind" matInput required>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" placeholder="Trailer #" formControlName="trailer" matInput>
+        </mat-form-field>
+        <mat-form-field>
+          <input name="pickUpDate" placeholder="Date" formControlName="date" matInput required
+                 [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="time" placeholder="Time" formControlName="time" matInput>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" placeholder="Description" formControlName="description" matInput>
+        </mat-form-field>
+      </div>
+      <div class="address" formGroupName="address" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center">
+        <mat-form-field>
+          <input type="text" placeholder="Address line 1" formControlName="address1" matInput required>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" placeholder="Address line 2" formControlName="address2" matInput>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" placeholder="City" formControlName="city" matInput required>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" placeholder="State" formControlName="state" matInput required>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="number" placeholder="zip" formControlName="zip" matInput required>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutGap="15px" fxLayoutAlign="center">
+      <button mat-mini-fab color="warn" matTooltip="CANCEL" (click)="onCancel()">
+        <mat-icon>clear</mat-icon>
+      </button>
+      <button type="submit" [mat-dialog-close]="partialForm.value" mat-mini-fab color="primary" matTooltip="SAVE">
+        <mat-icon>save_alt</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

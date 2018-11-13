@@ -21,15 +21,23 @@
         <div class="description mat-subheading-1"> Description: {{ freight?.description}} </div>
       </section>
       <mat-action-row fxLayoutGap="10px">
-        <button mat-mini-fab color="primary" (click)="onEditFreight(freight.freightId)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-mini-fab color="primary" (click)="onCompleteFreight()">
-          <mat-icon>done</mat-icon>
-        </button>
-        <button mat-mini-fab color="warn" (click)="onDeleteFreight()">
-          <mat-icon>clear</mat-icon>
-        </button>
+        <div fxLayoutGap="10px">
+          <button mat-mini-fab color="primary" matTooltip="EDIT" (click)="onEditFreight(freight.freightId)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-mini-fab color="primary" matTooltip="COMPLETE" (click)="onCompleteFreight()">
+            <mat-icon>done</mat-icon>
+          </button>
+          <button mat-mini-fab color="warn" matTooltip="DELETE" (click)="onDeleteFreight()">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
+        <div fxFlex=""></div>
+        <div style="padding-right: 15px">
+          <button mat-mini-fab color="primary" matTooltip="ADD a Pick-UP" (click)="onAddPickUp()">
+            <mat-icon>local_shipping</mat-icon>
+          </button>
+        </div>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

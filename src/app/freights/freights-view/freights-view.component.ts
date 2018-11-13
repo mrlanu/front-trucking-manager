@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {FreightsEditComponent} from '../freights-edit/freights-edit.component';
 import {FreightsService} from '../freights.service';
+import {PartialsEditComponent} from '../partials/partials-edit/partials-edit.component';
+import {Partial} from '../partials/partial.model';
 
 @Component({
   selector: 'app-freights-view',
@@ -13,6 +15,7 @@ import {FreightsService} from '../freights.service';
 export class FreightsViewComponent implements OnInit {
 
   @Input() freight: Freight;
+  partial: Partial;
 
   constructor(private router: Router,
               private dialog: MatDialog,
@@ -37,5 +40,24 @@ export class FreightsViewComponent implements OnInit {
         });
       }
     });
+  }
+
+  onAddPickUp() {
+    const dialogRef = this.dialog.open(PartialsEditComponent, {
+      width: '900px',
+      data: {partial: this.partial}
+    });
+    dialogRef.afterClosed()
+      .subscribe(result => {
+        if (result) {
+          this.partial = result;
+          console.log(this.partial);
+          /*this.freightService.storeEditedFreight(this.freight)
+            .subscribe(res => {},
+              err => {
+                console.log(err);
+            });*/
+        }
+      });
   }
 }
