@@ -1,13 +1,23 @@
 <div class="container mat-elevation-z8">
-  <div fxLayoutAlign="center center">
-    <mat-form-field fxFlex="40%">
-      <input matInput
-             type="text"
-             (keyup)="doFilter($event.target.value)"
-             placeholder="Filter">
-    </mat-form-field>
+
+  <div style="padding: 20px 30px 0 30px">
+    <div fxLayoutAlign="space-between">
+      <mat-form-field fxFlex="40%">
+        <input matInput
+               type="text"
+               (keyup)="doFilter($event.target.value)"
+               placeholder="Filter">
+      </mat-form-field>
+      <button mat-mini-fab color="primary"
+              matTooltip="ADD a Freight"
+              (click)="onAddFreight()">
+        <mat-icon>playlist_add</mat-icon>
+      </button>
+    </div>
   </div>
+
   <table mat-table [dataSource]="dataSource">
+
   <!-- Broker Column -->
   <ng-container matColumnDef="broker">
     <mat-header-cell *matHeaderCellDef> Broker </mat-header-cell>

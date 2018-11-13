@@ -25,7 +25,6 @@ export class FreightsManagerComponent implements OnInit, OnDestroy {
       }));
     this.componentSubs.push(this.freightService.freightChanged
       .subscribe((freight: Freight) => {
-        console.log(freight);
       this.freight = freight;
     }));
     this.freightService.fetchFreightById(this.freightId);
