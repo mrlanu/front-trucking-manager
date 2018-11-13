@@ -1,10 +1,5 @@
-<section class="load mat-elevation-z8">
-  <div class="loading-indicator" *ngIf="isLoading">
-    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
-  </div>
-  <div *ngIf="!isLoading">
-    <form [formGroup]="freightForm" (ngSubmit)="onSubmit()"
-          fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+<div>
+    <form [formGroup]="freightForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
       <div fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutGap.gt-sm="100px" fxLayoutGap.lt-md="0px">
         <div fxLayout="column">
           <mat-form-field>
@@ -38,10 +33,12 @@
         </div>
       </div>
       <div fxLayout="row" fxLayoutGap="20px">
-        <button mat-mini-fab color="primary" (click)="onCancel()" [disabled]="freightForm.touched">
+        <button mat-mini-fab color="primary" (click)="onCancel()">
           <mat-icon>arrow_back</mat-icon>
         </button>
-        <button type="submit" mat-mini-fab color="primary" [disabled]="freightForm.invalid || freightForm.untouched">
+        <button type="submit" [mat-dialog-close]="freightForm.value"
+                mat-mini-fab color="primary"
+                [disabled]="freightForm.invalid || freightForm.untouched">
           <mat-icon *ngIf="!editMode; else newMode">navigate_next</mat-icon>
           <ng-template #newMode>
             <mat-icon *ngIf="editMode">save_alt</mat-icon>
@@ -49,5 +46,5 @@
         </button>
       </div>
     </form>
-  </div>
-</section>
+</div>
+

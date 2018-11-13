@@ -1,42 +1,24 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {FreightsService} from '../freights.service';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
 import {Freight} from '../freight.model';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-freights-edit',
   templateUrl: './freights-edit.component.html',
   styleUrls: ['./freights-edit.component.css']
 })
-export class FreightsEditComponent implements OnInit, OnDestroy {
+export class FreightsEditComponent implements OnInit {
 
-  isLoading = false;
   editMode = false;
   freightId: number;
   freightForm: FormGroup;
   kinds: String[] = ['Dry', 'Frozen', 'Chilled'];
-  private componentSubs: Subscription[] = [];
 
-  constructor(private freightService: FreightsService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+  constructor(public dialogRef: MatDialogRef<FreightsEditComponent>,
+              @Inject(MAT_DIALOG_DATA) public passedData: any) { }
 
   ngOnInit() {
-    this.componentSubs.push(this.route.params
-      .subscribe((params: Params) => {
-        this.freightId = params['freightId'];
-        this.editMode = params['freightId'] != null;
-      }));
-    this.componentSubs.push(this.freightService.freightChanged
-      .subscribe((freight: Freight) => {
-        this.setFormValueForEditFreight(freight);
-      }));
-    if (this.editMode) {
-      this.isLoading = true;
-      this.freightService.fetchFreightById(this.freightId);
-    }
     this.initForm();
   }
 
@@ -54,6 +36,11 @@ export class FreightsEditComponent implements OnInit, OnDestroy {
       'description': new FormControl(''),
       'employee': new FormControl('')
     });
+
+    if (this.passedData.freight) {
+      this.setFormValueForEditFreight(this.passedData.freight);
+      this.editMode = true;
+    }
   }
 
   setFormValueForEditFreight(freight: Freight) {
@@ -69,34 +56,9 @@ export class FreightsEditComponent implements OnInit, OnDestroy {
       commodity: freight.commodity,
       employee: freight.employee
     });
-    this.isLoading = false;
-  }
-
-  onSubmit() {
-    if (this.editMode) {
-      this.freightService.storeEditedFreight(this.freightForm.value).subscribe(result => {
-        console.log(result);
-        this.router.navigate(['freights']);
-      });
-    } else {
-      this.freightForm.patchValue({employee: {employeeId: 1}});
-      this.freightService.storeFreight(this.freightForm.value).subscribe(result => {
-        console.log(result);
-        this.router.navigate(['freights']);
-      }, err => {
-        console.log(err);
-      });
-    }
   }
 
   onCancel() {
-    this.freightForm.reset();
-    this.router.navigate(['freights']);
-  }
-
-  ngOnDestroy(): void {
-    this.componentSubs.forEach(sub => {
-      sub.unsubscribe();
-    });
+    this.dialogRef.close();
   }
 }
