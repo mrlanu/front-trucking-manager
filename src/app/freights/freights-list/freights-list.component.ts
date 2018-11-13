@@ -39,6 +39,10 @@ export class FreightsListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  onSelectFreight(row) {
+    this.router.navigate(['manager', row.freightId], {relativeTo: this.route});
+  }
+
 
   ngOnDestroy(): void {
     this.componentSubs.forEach(subs => {
@@ -46,7 +50,4 @@ export class FreightsListComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  onSelectFreight(row) {
-    this.router.navigate(['edit', row.freightId], {relativeTo: this.route});
-  }
 }

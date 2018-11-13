@@ -1,3 +1,10 @@
-<p>
-  freights-manager works!
-</p>
+<div style="height: 16px"></div>
+<div class="container" fxLayout="row" fxLayoutAlign="space-between">
+  <div fxLayout="column" fxFlex="49%" fxLayoutGap="20px">
+    <app-freights-view [freight]="freight"></app-freights-view>
+    <!--<app-load-log [loadId]="loadId"></app-load-log>-->
+  </div>
+  <div fxFlex="48%">
+    <app-partials-list></app-partials-list>
+  </div>
+</div>

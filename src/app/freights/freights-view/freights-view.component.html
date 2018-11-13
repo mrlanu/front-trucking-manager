@@ -1,0 +1,35 @@
+<mat-accordion>
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <div fxLayout="row" fxLayoutGap="20px">
+            <div>Rate: {{ freight?.rate | currency}}</div>
+          </div>
+        </mat-panel-title>
+        <mat-panel-description>
+          <div>
+            Broker: {{ freight?.broker}}
+            <!--<span *ngIf="task.crossTask.address.city" style="color: red">Cross Dock</span>-->
+          </div>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <section fxLayout="column" fxLayoutGap="10px">
+        <div class="description mat-subheading-1"> Commodity: {{ freight?.commodity}} </div>
+        <div class="description mat-subheading-1"> Pallets: {{ freight?.pallets}} </div>
+        <div class="description mat-subheading-1"> Weight: {{ freight?.weight}} </div>
+        <div class="description mat-subheading-1"> Kind: {{ freight?.kind}} </div>
+        <div class="description mat-subheading-1"> Description: {{ freight?.description}} </div>
+      </section>
+      <mat-action-row fxLayoutGap="10px">
+        <button mat-mini-fab color="primary" (click)="onEditTask(freight.freightId)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-mini-fab color="primary" (click)="onCompleteFreight()">
+          <mat-icon>done</mat-icon>
+        </button>
+        <button mat-mini-fab color="warn" (click)="onDeleteFreight()">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>

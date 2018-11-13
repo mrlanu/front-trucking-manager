@@ -1,0 +1,44 @@
+<div class="container">
+  <mat-accordion>
+    <mat-expansion-panel [ngClass]="{itemCompleted: partial.status == 'Completed'}">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <div fxLayout="row" fxLayoutGap="20px">
+            <div>Kind: {{ partial.kind }}</div>
+            <div>Status: {{ partial.status }}</div>
+          </div>
+        </mat-panel-title>
+        <mat-panel-description>
+          <div>
+            Date: {{ partial.date | date: 'MMM dd yyyy' }}
+            <!--<span *ngIf="task.crossTask.address.city" style="color: red">Cross Dock</span>-->
+          </div>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <section fxLayout="column" fxLayoutGap="10px">
+        <div>Address: <span>{{ partial.address.address1}} {{ partial.address.address2}}
+                            {{ partial.address.city}}, {{ partial.address.state}}
+                            {{ partial.address.zip}}
+                      </span>
+        </div>
+        <div>Time: <span>{{ partial.time}}</span></div>
+        <div>Description: <span>{{ partial.description}}</span></div>
+
+        <div *ngIf="partial.status == 'Completed'" style="color: blue">
+          Completed
+        </div>
+      </section>
+      <mat-action-row fxLayoutGap="10px">
+        <button mat-mini-fab color="primary" (click)="onEditTask()" [disabled]="employeeMode">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-mini-fab color="primary" (click)="onCompleteTask(task.id)">
+          <mat-icon>done</mat-icon>
+        </button>
+        <button mat-mini-fab color="warn" (click)="onDeleteTask(task.id)" [disabled]="employeeMode">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

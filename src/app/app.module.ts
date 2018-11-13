@@ -16,6 +16,10 @@ import {HttpClientModule} from '@angular/common/http';
 import { EmployeeComponent } from './employee/employee.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { FreightsManagerComponent } from './freights/freights-manager/freights-manager.component';
+import { PartialsListComponent } from './freights/partials/partials-list/partials-list.component';
+import { PartialsItemComponent } from './freights/partials/partials-list/partials-item/partials-item.component';
+import { PartialsEditComponent } from './freights/partials/partials-edit/partials-edit.component';
+import { FreightsViewComponent } from './freights/freights-view/freights-view.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,11 @@ import { FreightsManagerComponent } from './freights/freights-manager/freights-m
     FreightsListComponent,
     FreightsEditComponent,
     EmployeeComponent,
-    FreightsManagerComponent
+    FreightsManagerComponent,
+    PartialsListComponent,
+    PartialsItemComponent,
+    PartialsEditComponent,
+    FreightsViewComponent
   ],
   imports: [
     MaterialModule,
