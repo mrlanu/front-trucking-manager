@@ -46,6 +46,7 @@ import { FreightsViewComponent } from './freights/freights-view/freights-view.co
     ReactiveFormsModule
   ],
   providers: [FreightsService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [FreightsEditComponent, PartialsEditComponent]
 })
 export class AppModule { }
