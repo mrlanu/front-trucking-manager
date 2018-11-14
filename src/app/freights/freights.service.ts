@@ -55,10 +55,14 @@ export class FreightsService {
     return this.httpClient.post(url, partial);
   }
 
+  storeEditedPartial(freightId: number, partial: Partial) {
+    const url = this.baseUrl + '/freights/' + freightId + '/partials/' + partial.partialId;
+    return this.httpClient.put(url, partial);
+  }
+
   fetchAllPartialsByFreightId(freightId: number) {
     const url = this.baseUrl + '/freights/' + freightId + '/partials';
     return this.httpClient.get(url).subscribe((partials: Partial[]) => {
-      console.log(partials);
       this.partialsChanged.next(partials);
     });
   }

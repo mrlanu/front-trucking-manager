@@ -42,7 +42,7 @@ export class FreightsViewComponent implements OnInit {
     });
   }
 
-  onAddPickUp() {
+  onAddPartial() {
     const dialogRef = this.dialog.open(PartialsEditComponent, {
       width: '900px',
       data: {partial: this.partial}
