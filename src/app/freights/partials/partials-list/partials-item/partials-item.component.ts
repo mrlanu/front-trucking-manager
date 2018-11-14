@@ -21,7 +21,6 @@ export class PartialsItemComponent implements OnInit {
   }
 
   onEditPartial() {
-    console.log(this.partial);
     const dialogRef = this.dialog.open(PartialsEditComponent, {
       width: '900px',
       data: {partial: this.partial}
@@ -29,7 +28,6 @@ export class PartialsItemComponent implements OnInit {
     dialogRef.afterClosed()
       .subscribe(result => {
         if (result) {
-          console.log(result);
           this.partial = result;
           this.freightService.storeEditedPartial(this.freightId, this.partial)
             .subscribe(res => {

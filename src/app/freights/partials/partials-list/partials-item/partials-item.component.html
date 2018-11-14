@@ -29,15 +29,23 @@
         </div>
       </section>
       <mat-action-row fxLayoutGap="10px">
-        <button mat-mini-fab color="primary" (click)="onEditPartial()" [disabled]="employeeMode">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-mini-fab color="primary" (click)="onCompleteTask(task.id)">
-          <mat-icon>done</mat-icon>
-        </button>
-        <button mat-mini-fab color="warn" (click)="onDeleteTask(task.id)" [disabled]="employeeMode">
-          <mat-icon>clear</mat-icon>
-        </button>
+        <div fxLayoutGap="10px">
+          <button mat-mini-fab color="primary" matTooltip="EDIT" (click)="onEditPartial()" [disabled]="employeeMode">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-mini-fab color="primary" matTooltip="COMPLETE" (click)="onCompleteTask(task.id)">
+            <mat-icon>done</mat-icon>
+          </button>
+          <button mat-mini-fab color="warn" matTooltip="DELETE" (click)="onDeleteTask(task.id)" [disabled]="employeeMode">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
+        <div fxFlex></div>
+        <div style="padding-right: 15px">
+          <button mat-mini-fab color="primary" matTooltip="ADD a Delivery" (click)="onAddPartial()">
+            <mat-icon>local_shipping</mat-icon>
+          </button>
+        </div>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
