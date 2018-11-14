@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Partial} from '../partial.model';
-import {Address} from '../../../shared/address.model';
+import {FreightsService} from '../../freights.service';
+import {Subscription} from 'rxjs';
+import {Freight} from '../../freight.model';
 
 @Component({
   selector: 'app-partials-list',
@@ -9,46 +11,18 @@ import {Address} from '../../../shared/address.model';
 })
 export class PartialsListComponent implements OnInit {
 
-  partials: Partial[] = [
-    {
-      partialId: 1,
-      kind: 'Pick-up',
-      date: new Date(),
-      address: {
-        address1: '200 Main St.',
-        address2: '',
-        city: 'Yakima',
-        state: 'Washington',
-        zip: 90010
-      },
-      time: '10-00',
-      description: 'long loading',
-      status: 'Unscheduled',
-      location: null,
-      trailer: null
-    },
-    {
-      partialId: 2,
-      kind: 'Pick-up',
-      date: new Date(),
-      address: {
-        address1: '200 Main St.',
-        address2: '',
-        city: 'Yakima',
-        state: 'Washington',
-        zip: 90010
-      },
-      time: '10-00',
-      description: 'long loading',
-      status: 'Unscheduled',
-      location: null,
-      trailer: null
-    }
-  ];
+  @Input() freightId: number;
+  partials: Partial[] = [];
+  componentSubs: Subscription[] = [];
 
-  constructor() { }
+  constructor(private freightService: FreightsService) { }
 
   ngOnInit() {
+    this.componentSubs.push(this.freightService.partialsChanged
+      .subscribe((partials: Partial[]) => {
+        this.partials = partials;
+      }));
+    this.freightService.fetchAllPartialsByFreightId(this.freightId);
   }
 
 }

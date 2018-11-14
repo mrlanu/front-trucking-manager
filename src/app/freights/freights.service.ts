@@ -4,12 +4,14 @@ import {Freight} from './freight.model';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
+import {Partial} from './partials/partial.model';
 
 @Injectable()
 export class FreightsService {
 
   freightsChanged = new Subject<Freight[]>();
   freightChanged = new Subject<Freight>();
+  partialsChanged = new Subject<Partial[]>()
   baseUrl = environment.baseUrl;
 
   constructor(private httpClient: HttpClient) {}
@@ -45,6 +47,19 @@ export class FreightsService {
     const url = this.baseUrl + '/freights/' + freightId;
     this.httpClient.get(url).subscribe((freight: Freight) => {
       this.freightChanged.next(freight);
+    });
+  }
+
+  storePartial(freightId: number, partial: Partial) {
+    const url = this.baseUrl + '/freights/' + freightId + '/partials';
+    return this.httpClient.post(url, partial);
+  }
+
+  fetchAllPartialsByFreightId(freightId: number) {
+    const url = this.baseUrl + '/freights/' + freightId + '/partials';
+    return this.httpClient.get(url).subscribe((partials: Partial[]) => {
+      console.log(partials);
+      this.partialsChanged.next(partials);
     });
   }
 }

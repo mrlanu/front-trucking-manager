@@ -51,12 +51,13 @@ export class FreightsViewComponent implements OnInit {
       .subscribe(result => {
         if (result) {
           this.partial = result;
-          console.log(this.partial);
-          /*this.freightService.storeEditedFreight(this.freight)
-            .subscribe(res => {},
+          this.freightService.storePartial(this.freight.freightId, this.partial)
+            .subscribe(res => {
+              this.freightService.fetchAllPartialsByFreightId(this.freight.freightId);
+              },
               err => {
                 console.log(err);
-            });*/
+            });
         }
       });
   }
