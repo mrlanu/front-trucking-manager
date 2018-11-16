@@ -11,6 +11,8 @@ import {Partial} from '../partial.model';
 export class PartialsEditComponent implements OnInit {
 
   partialForm: FormGroup;
+  kinds: string[] = ['PICKUP', 'DELIVERY'];
+
   constructor(public dialogRef: MatDialogRef<PartialsEditComponent>,
               @Inject(MAT_DIALOG_DATA) public passedData: any) { }
 
@@ -25,13 +27,13 @@ export class PartialsEditComponent implements OnInit {
         'zip': new FormControl('')
       }),
       'partialId': new FormControl(''),
-      'kind': new FormControl('Pick-UP'),
+      'kind': new FormControl('PICKUP'),
       'date': new FormControl(new Date()),
       'time': new FormControl(''),
       'trailer': new FormControl(''),
       'description': new FormControl(''),
-      'status': new FormControl('Unscheduled'),
-      'location': new FormControl('')
+      'location': new FormControl(''),
+      'status': new FormControl('')
     });
 
     if (this.passedData.partial) {
@@ -54,8 +56,8 @@ export class PartialsEditComponent implements OnInit {
       'time': partial.time,
       'trailer': partial.trailer,
       'description': partial.description,
-      'status': partial.status,
-      'location': partial.location
+      'location': partial.location,
+      'status': partial.status
     });
   }
 

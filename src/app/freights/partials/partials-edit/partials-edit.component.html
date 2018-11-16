@@ -2,24 +2,35 @@
   <form [formGroup]="partialForm" fxLayout="column">
     <div class="container" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="100px">
       <div class="info" fxLayout="column" fxLayoutGap="10px">
-        <mat-form-field>
-          <input type="text" placeholder="Kind" formControlName="kind" matInput required>
-        </mat-form-field>
-        <mat-form-field>
-          <input type="text" placeholder="Trailer #" formControlName="trailer" matInput>
-        </mat-form-field>
+
         <mat-form-field>
           <input name="pickUpDate" placeholder="Date" formControlName="date" matInput required
                  [matDatepicker]="picker">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker touchUi #picker></mat-datepicker>
         </mat-form-field>
+
+        <mat-form-field>
+          <input type="text" placeholder="Kind, pick one" aria-label="Number" matInput formControlName="kind" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let kind of kinds" [value]="kind">
+              {{ kind }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input type="text" placeholder="Trailer #" formControlName="trailer" matInput>
+        </mat-form-field>
+
         <mat-form-field>
           <input type="time" placeholder="Time" formControlName="time" matInput>
         </mat-form-field>
+
         <mat-form-field>
           <input type="text" placeholder="Description" formControlName="description" matInput>
         </mat-form-field>
+
       </div>
       <div class="address" formGroupName="address" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center">
         <mat-form-field>

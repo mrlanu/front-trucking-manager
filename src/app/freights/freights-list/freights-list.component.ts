@@ -61,7 +61,7 @@ export class FreightsListComponent implements OnInit, OnDestroy, AfterViewInit {
             firstName: '',
             lastName: '',
             email: '',
-            occupation: '',
+            occupation: 'Dispatcher',
             salary: null,
             salaryMeasure: ''
           };
