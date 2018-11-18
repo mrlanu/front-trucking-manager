@@ -1,7 +1,7 @@
 import {Address} from '../../shared/address.model';
 
 export interface Partial {
-  partialId: number;
+  pickupId: number;
   kind: string; // pick-up | delivery
   address: Address;
   date: Date;

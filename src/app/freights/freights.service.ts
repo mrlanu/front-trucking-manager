@@ -51,17 +51,17 @@ export class FreightsService {
   }
 
   storePartial(freightId: number, partial: Partial) {
-    const url = this.baseUrl + '/freights/' + freightId + '/partials';
+    const url = this.baseUrl + '/freights/' + freightId + '/pickups';
     return this.httpClient.post(url, partial);
   }
 
   storeEditedPartial(freightId: number, partial: Partial) {
-    const url = this.baseUrl + '/freights/' + freightId + '/partials/' + partial.partialId;
+    const url = this.baseUrl + '/freights/' + freightId + '/pickups/' + partial.pickupId;
     return this.httpClient.put(url, partial);
   }
 
   fetchAllPartialsByFreightId(freightId: number) {
-    const url = this.baseUrl + '/freights/' + freightId + '/partials';
+    const url = this.baseUrl + '/freights/' + freightId + '/pickups';
     return this.httpClient.get(url).subscribe((partials: Partial[]) => {
       this.partialsChanged.next(partials);
     });

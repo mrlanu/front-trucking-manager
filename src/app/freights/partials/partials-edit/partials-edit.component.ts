@@ -20,20 +20,21 @@ export class PartialsEditComponent implements OnInit {
 
     this.partialForm = new FormGroup({
       'address': new FormGroup({
+        'addressId': new FormControl(null),
         'address1': new FormControl(''),
         'address2': new FormControl(''),
         'city': new FormControl(''),
         'state': new FormControl(''),
         'zip': new FormControl('')
       }),
-      'partialId': new FormControl(''),
+      'pickupId': new FormControl(''),
       'kind': new FormControl('PICKUP'),
       'date': new FormControl(new Date()),
       'time': new FormControl(''),
       'trailer': new FormControl(''),
       'description': new FormControl(''),
       'location': new FormControl(''),
-      'status': new FormControl('')
+      'status': new FormControl('UNSCHEDULED')
     });
 
     if (this.passedData.partial) {
@@ -45,12 +46,13 @@ export class PartialsEditComponent implements OnInit {
   setFormValueForEditPartial(partial: Partial) {
     this.partialForm.setValue({
       'address': {
+        addressId: partial.address.addressId,
         address1: partial.address.address1,
         address2: partial.address.address2,
         city: partial.address.city,
         state: partial.address.state,
         zip: partial.address.zip},
-      'partialId': partial.partialId,
+      'pickupId': partial.pickupId,
       'kind': partial.kind,
       date: new Date(partial.date),
       'time': partial.time,
