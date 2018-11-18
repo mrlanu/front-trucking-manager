@@ -1,26 +1,26 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Partial} from '../partial.model';
+import {PickUp} from '../pickup.model';
 import {FreightsService} from '../../freights.service';
 import {Subscription} from 'rxjs';
 import {Freight} from '../../freight.model';
 
 @Component({
-  selector: 'app-partials-list',
-  templateUrl: './partials-list.component.html',
-  styleUrls: ['./partials-list.component.css']
+  selector: 'app-pickups-list',
+  templateUrl: './pickups-list.component.html',
+  styleUrls: ['./pickups-list.component.css']
 })
-export class PartialsListComponent implements OnInit {
+export class PickupsListComponent implements OnInit {
 
   @Input() freightId: number;
-  partials: Partial[] = [];
+  pickUps: PickUp[] = [];
   componentSubs: Subscription[] = [];
 
   constructor(private freightService: FreightsService) { }
 
   ngOnInit() {
-    this.componentSubs.push(this.freightService.partialsChanged
-      .subscribe((partials: Partial[]) => {
-        this.partials = partials;
+    this.componentSubs.push(this.freightService.pickupsChanged
+      .subscribe((pickUps1: PickUp[]) => {
+        this.pickUps = pickUps1;
       }));
     this.freightService.fetchAllPartialsByFreightId(this.freightId);
   }

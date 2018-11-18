@@ -1,6 +1,6 @@
 import {Address} from '../../shared/address.model';
 
-export interface Partial {
+export interface PickUp {
   pickupId: number;
   kind: string; // pick-up | delivery
   address: Address;

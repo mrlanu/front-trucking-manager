@@ -4,8 +4,8 @@ import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {FreightsEditComponent} from '../freights-edit/freights-edit.component';
 import {FreightsService} from '../freights.service';
-import {PartialsEditComponent} from '../partials/partials-edit/partials-edit.component';
-import {Partial} from '../partials/partial.model';
+import {PickupEditComponent} from '../pickups/pickup-edit/pickup-edit.component';
+import {PickUp} from '../pickups/pickup.model';
 
 @Component({
   selector: 'app-freights-view',
@@ -15,7 +15,7 @@ import {Partial} from '../partials/partial.model';
 export class FreightsViewComponent implements OnInit {
 
   @Input() freight: Freight;
-  partial: Partial;
+  pickUp: PickUp;
 
   constructor(private router: Router,
               private dialog: MatDialog,
@@ -43,15 +43,15 @@ export class FreightsViewComponent implements OnInit {
   }
 
   onAddPartial() {
-    const dialogRef = this.dialog.open(PartialsEditComponent, {
+    const dialogRef = this.dialog.open(PickupEditComponent, {
       width: '900px',
-      data: {partial: this.partial}
+      data: {pickup: this.pickUp}
     });
     dialogRef.afterClosed()
       .subscribe(result => {
         if (result) {
-          this.partial = result;
-          this.freightService.storePartial(this.freight.freightId, this.partial)
+          this.pickUp = result;
+          this.freightService.storePartial(this.freight.freightId, this.pickUp)
             .subscribe(res => {
               this.freightService.fetchAllPartialsByFreightId(this.freight.freightId);
               },

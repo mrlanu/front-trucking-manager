@@ -16,9 +16,9 @@ import {HttpClientModule} from '@angular/common/http';
 import { EmployeeComponent } from './employee/employee.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { FreightsManagerComponent } from './freights/freights-manager/freights-manager.component';
-import { PartialsListComponent } from './freights/partials/partials-list/partials-list.component';
-import { PartialsItemComponent } from './freights/partials/partials-list/partials-item/partials-item.component';
-import { PartialsEditComponent } from './freights/partials/partials-edit/partials-edit.component';
+import { PickupsListComponent } from './freights/pickups/pickups-list/pickups-list.component';
+import { PickupItemComponent } from './freights/pickups/pickups-list/pickup-item/pickup-item.component';
+import { PickupEditComponent } from './freights/pickups/pickup-edit/pickup-edit.component';
 import { FreightsViewComponent } from './freights/freights-view/freights-view.component';
 
 @NgModule({
@@ -31,9 +31,9 @@ import { FreightsViewComponent } from './freights/freights-view/freights-view.co
     FreightsEditComponent,
     EmployeeComponent,
     FreightsManagerComponent,
-    PartialsListComponent,
-    PartialsItemComponent,
-    PartialsEditComponent,
+    PickupsListComponent,
+    PickupItemComponent,
+    PickupEditComponent,
     FreightsViewComponent
   ],
   imports: [
@@ -47,6 +47,6 @@ import { FreightsViewComponent } from './freights/freights-view/freights-view.co
   ],
   providers: [FreightsService],
   bootstrap: [AppComponent],
-  entryComponents: [FreightsEditComponent, PartialsEditComponent]
+  entryComponents: [FreightsEditComponent, PickupEditComponent]
 })
 export class AppModule { }

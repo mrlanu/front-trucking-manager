@@ -1,17 +1,17 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Partial} from '../../partial.model';
-import {PartialsEditComponent} from '../../partials-edit/partials-edit.component';
+import {PickUp} from '../../pickup.model';
+import {PickupEditComponent} from '../../pickup-edit/pickup-edit.component';
 import {MatDialog} from '@angular/material';
 import {FreightsService} from '../../../freights.service';
 
 @Component({
-  selector: 'app-partials-item',
-  templateUrl: './partials-item.component.html',
-  styleUrls: ['./partials-item.component.css']
+  selector: 'app-pickup-item',
+  templateUrl: './pickup-item.component.html',
+  styleUrls: ['./pickup-item.component.css']
 })
-export class PartialsItemComponent implements OnInit {
+export class PickupItemComponent implements OnInit {
 
-  @Input() partial: Partial;
+  @Input() pickUp: PickUp;
   @Input() freightId: number;
 
   constructor(private dialog: MatDialog,
@@ -21,15 +21,15 @@ export class PartialsItemComponent implements OnInit {
   }
 
   onEditPartial() {
-    const dialogRef = this.dialog.open(PartialsEditComponent, {
+    const dialogRef = this.dialog.open(PickupEditComponent, {
       width: '900px',
-      data: {partial: this.partial}
+      data: {pickup: this.pickUp}
     });
     dialogRef.afterClosed()
       .subscribe(result => {
         if (result) {
-          this.partial = result;
-          this.freightService.storeEditedPartial(this.freightId, this.partial)
+          this.pickUp = result;
+          this.freightService.storeEditedPartial(this.freightId, this.pickUp)
             .subscribe(res => {
                 this.freightService.fetchAllPartialsByFreightId(this.freightId);
               },

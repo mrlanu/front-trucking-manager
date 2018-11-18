@@ -1,17 +1,17 @@
 import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 import {Freight} from './freight.model';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
-import {Partial} from './partials/partial.model';
+import {PickUp} from './pickups/pickup.model';
 
 @Injectable()
 export class FreightsService {
 
   freightsChanged = new Subject<Freight[]>();
   freightChanged = new Subject<Freight>();
-  partialsChanged = new Subject<Partial[]>()
+  pickupsChanged = new Subject<PickUp[]>();
   baseUrl = environment.baseUrl;
 
   constructor(private httpClient: HttpClient) {}
@@ -50,20 +50,20 @@ export class FreightsService {
     });
   }
 
-  storePartial(freightId: number, partial: Partial) {
+  storePartial(freightId: number, partial: PickUp) {
     const url = this.baseUrl + '/freights/' + freightId + '/pickups';
     return this.httpClient.post(url, partial);
   }
 
-  storeEditedPartial(freightId: number, partial: Partial) {
+  storeEditedPartial(freightId: number, partial: PickUp) {
     const url = this.baseUrl + '/freights/' + freightId + '/pickups/' + partial.pickupId;
     return this.httpClient.put(url, partial);
   }
 
   fetchAllPartialsByFreightId(freightId: number) {
     const url = this.baseUrl + '/freights/' + freightId + '/pickups';
-    return this.httpClient.get(url).subscribe((partials: Partial[]) => {
-      this.partialsChanged.next(partials);
+    return this.httpClient.get(url).subscribe((partials: PickUp[]) => {
+      this.pickupsChanged.next(partials);
     });
   }
 }

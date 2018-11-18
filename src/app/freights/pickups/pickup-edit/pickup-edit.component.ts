@@ -1,24 +1,24 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Partial} from '../partial.model';
+import {PickUp} from '../pickup.model';
 
 @Component({
-  selector: 'app-partials-edit',
-  templateUrl: './partials-edit.component.html',
-  styleUrls: ['./partials-edit.component.css']
+  selector: 'app-pickup-edit',
+  templateUrl: './pickup-edit.component.html',
+  styleUrls: ['./pickup-edit.component.css']
 })
-export class PartialsEditComponent implements OnInit {
+export class PickupEditComponent implements OnInit {
 
-  partialForm: FormGroup;
+  pickUpForm: FormGroup;
   kinds: string[] = ['PICKUP', 'DELIVERY'];
 
-  constructor(public dialogRef: MatDialogRef<PartialsEditComponent>,
+  constructor(public dialogRef: MatDialogRef<PickupEditComponent>,
               @Inject(MAT_DIALOG_DATA) public passedData: any) { }
 
   ngOnInit() {
 
-    this.partialForm = new FormGroup({
+    this.pickUpForm = new FormGroup({
       'address': new FormGroup({
         'addressId': new FormControl(null),
         'address1': new FormControl(''),
@@ -37,14 +37,14 @@ export class PartialsEditComponent implements OnInit {
       'status': new FormControl('UNSCHEDULED')
     });
 
-    if (this.passedData.partial) {
-      this.setFormValueForEditPartial(this.passedData.partial);
+    if (this.passedData.pickup) {
+      this.setFormValueForEditPartial(this.passedData.pickup);
       /*this.editMode = true;*/
     }
   }
 
-  setFormValueForEditPartial(partial: Partial) {
-    this.partialForm.setValue({
+  setFormValueForEditPartial(partial: PickUp) {
+    this.pickUpForm.setValue({
       'address': {
         addressId: partial.address.addressId,
         address1: partial.address.address1,

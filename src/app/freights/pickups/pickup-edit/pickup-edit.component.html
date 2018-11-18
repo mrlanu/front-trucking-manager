@@ -1,5 +1,5 @@
 <div>
-  <form [formGroup]="partialForm" fxLayout="column">
+  <form [formGroup]="pickUpForm" fxLayout="column">
     <div class="container" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="100px">
       <div class="info" fxLayout="column" fxLayoutGap="10px">
 
@@ -54,7 +54,7 @@
       <button mat-mini-fab color="warn" matTooltip="CANCEL" (click)="onCancel()">
         <mat-icon>clear</mat-icon>
       </button>
-      <button type="submit" [mat-dialog-close]="partialForm.value" mat-mini-fab color="primary" matTooltip="SAVE">
+      <button type="submit" [mat-dialog-close]="pickUpForm.value" mat-mini-fab color="primary" matTooltip="SAVE">
         <mat-icon>save_alt</mat-icon>
       </button>
     </div>
