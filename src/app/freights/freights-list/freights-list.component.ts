@@ -5,6 +5,7 @@ import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/mat
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FreightsEditComponent} from '../freights-edit/freights-edit.component';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-freights-list',
@@ -22,15 +23,18 @@ export class FreightsListComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private freightsService: FreightsService,
               private router: Router,
               private route: ActivatedRoute,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private authService: AuthService) { }
 
   ngOnInit() {
-    this.componentSubs.push(this.freightsService.freightsChanged
+    localStorage.clear();
+    this.authService.getToken();
+    /*this.componentSubs.push(this.freightsService.freightsChanged
       .subscribe((freights: Freight[]) => {
         this.dataSource.data = freights;
       }));
     this.freightsService.fetchAllFreights();
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator;*/
   }
 
   ngAfterViewInit() {
