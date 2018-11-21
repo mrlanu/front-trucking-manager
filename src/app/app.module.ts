@@ -22,6 +22,8 @@ import {PickupEditComponent} from './freights/pickups/pickup-edit/pickup-edit.co
 import {FreightsViewComponent} from './freights/freights-view/freights-view.component';
 import {AuthService} from './auth/auth.service';
 import {AuthInterceptor} from './shared/auth.interceptor';
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import {AuthInterceptor} from './shared/auth.interceptor';
     PickupsListComponent,
     PickupItemComponent,
     PickupEditComponent,
-    FreightsViewComponent
+    FreightsViewComponent,
+    SignupComponent,
+    LoginComponent
   ],
   imports: [
     MaterialModule,

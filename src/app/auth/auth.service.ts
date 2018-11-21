@@ -1,9 +1,43 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {store} from '@angular/core/src/render3';
+import {User} from './user.model';
+import {AuthData} from './auth-data.model';
+import {Subject} from 'rxjs';
 
 @Injectable()
 export class AuthService {
+
+  private user: User;
+  authChange = new Subject<boolean>();
+
+  registerUser(authData: AuthData) {
+    this.user = {
+      email: authData.email,
+      userId: 1
+    };
+    this.authChange.next(true);
+  }
+
+  login(authData: AuthData) {
+    this.user = {
+      email: authData.email,
+      userId: 1
+    };
+    this.authChange.next(true);
+  }
+
+  logout() {
+    this.user = null;
+    this.authChange.next(false);
+  }
+
+  getUser() {
+    return {...this.user};
+  }
+
+  isAuth() {
+    return this.user != null;
+  }
 
   constructor(private httpClient: HttpClient) { }
 
@@ -24,7 +58,6 @@ export class AuthService {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
         'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
         'Authorization': 'Basic ' + btoa('my-trusted-client:secret')
       })
