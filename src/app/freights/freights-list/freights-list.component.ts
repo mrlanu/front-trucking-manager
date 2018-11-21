@@ -27,14 +27,14 @@ export class FreightsListComponent implements OnInit, OnDestroy, AfterViewInit {
               private authService: AuthService) { }
 
   ngOnInit() {
-    localStorage.clear();
-    this.authService.getToken();
-    /*this.componentSubs.push(this.freightsService.freightsChanged
+    /*localStorage.clear();
+    this.authService.getToken();*/
+    this.componentSubs.push(this.freightsService.freightsChanged
       .subscribe((freights: Freight[]) => {
         this.dataSource.data = freights;
       }));
     this.freightsService.fetchAllFreights();
-    this.dataSource.paginator = this.paginator;*/
+    this.dataSource.paginator = this.paginator;
   }
 
   ngAfterViewInit() {

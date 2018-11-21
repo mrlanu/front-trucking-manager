@@ -3,19 +3,29 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from './user.model';
 import {AuthData} from './auth-data.model';
 import {Subject} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthService {
 
+  constructor(private router: Router, private httpClient: HttpClient) {}
+
   private user: User;
   authChange = new Subject<boolean>();
+
+  static saveToken(token) {
+    const expireDate = new Date().getTime() + (1000 * token.expires_in);
+    localStorage.setItem('access_token', token.access_token);
+    localStorage.setItem('tokenExpireDate', expireDate.toString());
+    console.log('Obtained Access token');
+  }
 
   registerUser(authData: AuthData) {
     this.user = {
       email: authData.email,
       userId: 1
     };
-    this.authChange.next(true);
+    this.authSuccessfully();
   }
 
   login(authData: AuthData) {
@@ -23,12 +33,13 @@ export class AuthService {
       email: authData.email,
       userId: 1
     };
-    this.authChange.next(true);
+    this.authSuccessfully();
   }
 
   logout() {
     this.user = null;
     this.authChange.next(false);
+    this.router.navigate(['/login']);
   }
 
   getUser() {
@@ -39,13 +50,9 @@ export class AuthService {
     return this.user != null;
   }
 
-  constructor(private httpClient: HttpClient) { }
-
-  static saveToken(token) {
-    const expireDate = new Date().getTime() + (1000 * token.expires_in);
-    localStorage.setItem('access_token', token.access_token);
-    localStorage.setItem('tokenExpireDate', expireDate.toString());
-    console.log('Obtained Access token');
+  authSuccessfully() {
+    this.authChange.next(true);
+    this.router.navigate(['/freights']);
   }
 
   getToken() {
