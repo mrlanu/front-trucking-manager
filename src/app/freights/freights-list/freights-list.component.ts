@@ -23,12 +23,9 @@ export class FreightsListComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private freightsService: FreightsService,
               private router: Router,
               private route: ActivatedRoute,
-              private dialog: MatDialog,
-              private authService: AuthService) { }
+              private dialog: MatDialog) { }
 
   ngOnInit() {
-    /*localStorage.clear();
-    this.authService.getToken();*/
     this.componentSubs.push(this.freightsService.freightsChanged
       .subscribe((freights: Freight[]) => {
         this.dataSource.data = freights;

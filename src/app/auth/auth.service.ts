@@ -4,6 +4,7 @@ import {User} from './user.model';
 import {AuthData} from './auth-data.model';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
@@ -12,6 +13,8 @@ export class AuthService {
 
   private user: User;
   authChange = new Subject<boolean>();
+  baseUrl = environment.baseUrl;
+  private isAuthenticated = false;
 
   static saveToken(token) {
     const expireDate = new Date().getTime() + (1000 * token.expires_in);
@@ -22,44 +25,39 @@ export class AuthService {
 
   registerUser(authData: AuthData) {
     this.user = {
-      email: authData.email,
+      email: authData.username,
       userId: 1
     };
     this.authSuccessfully();
   }
 
   login(authData: AuthData) {
-    this.user = {
-      email: authData.email,
-      userId: 1
-    };
-    this.authSuccessfully();
+    this.getToken(authData);
   }
 
   logout() {
     this.user = null;
+    this.isAuthenticated = false;
+    localStorage.clear();
     this.authChange.next(false);
     this.router.navigate(['/login']);
   }
 
-  getUser() {
-    return {...this.user};
-  }
-
   isAuth() {
-    return this.user != null;
+    return this.isAuthenticated;
   }
 
   authSuccessfully() {
     this.authChange.next(true);
+    this.isAuthenticated = true;
     this.router.navigate(['/freights']);
   }
 
-  getToken() {
+  getToken(authData: AuthData) {
 
     const params = new URLSearchParams();
-    params.append('username', 'user');
-    params.append('password', 'user');
+    params.append('username', authData.username);
+    params.append('password', authData.password);
     params.append('grant_type', 'password');
     params.append('client_id', 'my-trusted-client');
 
@@ -70,37 +68,12 @@ export class AuthService {
       })
     };
 
-    this.httpClient.post('http://localhost:8080/oauth/token', params.toString(), httpOptions)
+    this.httpClient.post(this.baseUrl + '/oauth/token', params.toString(), httpOptions)
       .subscribe(token => {
         AuthService.saveToken(token);
-        this.getResource();
-      }, error1 => {
-        console.log(error1);
-      });
-  }
-
-  getResource() {
-    this.httpClient.get('http://localhost:8080/private')
-      .subscribe(res => {
-        console.log('Resources ====>>>> ');
-        console.log(res);
-        this.saveUser();
-      }, error1 => {
-        console.log(error1);
-      });
-  }
-
-  saveUser() {
-    console.log('SAVING . . .');
-    this.httpClient.post('http://localhost:8080/private', {
-      'username': 'Serhiy',
-      'password': '123',
-      'active': true,
-      'roles': null})
-      .subscribe(resp => {
-        console.log(resp);
-      }, error1 => {
-        console.log(error1);
+        this.authSuccessfully();
+      }, err => {
+        console.log(err);
       });
   }
 }

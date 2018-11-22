@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     this.authService.registerUser({
-      email: this.signUpForm.value.email,
+      username: this.signUpForm.value.username,
       password: this.signUpForm.value.password
     });
   }
