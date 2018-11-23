@@ -24,11 +24,11 @@ export class AuthService {
   }
 
   registerUser(authData: AuthData) {
-    this.user = {
-      email: authData.username,
-      userId: 1
-    };
-    this.authSuccessfully();
+    this.httpClient.post(this.baseUrl + '/signup', authData).subscribe(user => {
+      this.router.navigate(['/login']);
+    }, err => {
+      console.log(err);
+    });
   }
 
   login(authData: AuthData) {
