@@ -6,6 +6,7 @@ import {FreightsEditComponent} from '../freights-edit/freights-edit.component';
 import {FreightsService} from '../freights.service';
 import {PickupEditComponent} from '../pickups/pickup-edit/pickup-edit.component';
 import {PickUp} from '../pickups/pickup.model';
+import {DeliveryAddComponent} from '../deliveries/delivery-add/delivery-add.component';
 
 @Component({
   selector: 'app-freights-view',
@@ -42,7 +43,7 @@ export class FreightsViewComponent implements OnInit {
     });
   }
 
-  onAddPartial() {
+  onAddPickUp() {
     const dialogRef = this.dialog.open(PickupEditComponent, {
       width: '900px',
       data: {pickup: this.pickUp}
@@ -53,11 +54,31 @@ export class FreightsViewComponent implements OnInit {
           this.pickUp = result;
           this.freightService.storePartial(this.freight.freightId, this.pickUp)
             .subscribe(res => {
-              this.freightService.fetchAllPartialsByFreightId(this.freight.freightId);
+              this.freightService.fetchAllPickUpsByFreightId(this.freight.freightId);
               },
               err => {
                 console.log(err);
             });
+        }
+      });
+  }
+
+  onAddDelivery() {
+    const dialogRef = this.dialog.open(DeliveryAddComponent, {
+      width: '900px',
+      data: {pickup: this.pickUp}
+    });
+    dialogRef.afterClosed()
+      .subscribe(result => {
+        if (result) {
+          this.pickUp = result;
+          this.freightService.storePartial(this.freight.freightId, this.pickUp)
+            .subscribe(res => {
+                this.freightService.fetchAllPickUpsByFreightId(this.freight.freightId);
+              },
+              err => {
+                console.log(err);
+              });
         }
       });
   }

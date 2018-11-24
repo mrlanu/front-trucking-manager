@@ -1,0 +1,114 @@
+<div fxLayout="column" fxLayoutGap="40px">
+  <div style="padding-left: 80px; padding-top: 40px">Select which pick up should be delivery ?</div>
+  <div fxLayout="row" fxFlexAlign="center" style="width: 83%">
+    <table mat-table [dataSource]="dataSource">
+
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        color="primary">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)"
+                        color="primary">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef> Address </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.address.address1}} {{ element.address.address2}}
+          {{ element.address.city}}, {{ element.address.state}}
+          {{ element.address.zip}}
+        </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="time">
+        <th mat-header-cell *matHeaderCellDef> Time </th>
+        <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+          (click)="selection.toggle(row)">
+      </tr>
+    </table>
+  </div>
+  <div>
+    <form [formGroup]="pickUpForm" fxLayout="column">
+      <div class="container" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="100px">
+        <div class="info" fxLayout="column" fxLayoutGap="10px">
+
+          <mat-form-field>
+            <input name="pickUpDate" placeholder="Date" formControlName="date" matInput required
+                   [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input type="text" placeholder="Kind, pick one" aria-label="Number" matInput formControlName="kind" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let kind of kinds" [value]="kind">
+                {{ kind }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input type="text" placeholder="Trailer #" formControlName="trailer" matInput>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input type="time" placeholder="Time" formControlName="time" matInput>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input type="text" placeholder="Description" formControlName="description" matInput>
+          </mat-form-field>
+
+        </div>
+        <div class="address" formGroupName="address" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center">
+          <mat-form-field>
+            <input type="text" placeholder="Address line 1" formControlName="address1" matInput required>
+          </mat-form-field>
+          <mat-form-field>
+            <input type="text" placeholder="Address line 2" formControlName="address2" matInput>
+          </mat-form-field>
+          <mat-form-field>
+            <input type="text" placeholder="City" formControlName="city" matInput required>
+          </mat-form-field>
+          <mat-form-field>
+            <input type="text" placeholder="State" formControlName="state" matInput required>
+          </mat-form-field>
+          <mat-form-field>
+            <input type="number" placeholder="zip" formControlName="zip" matInput required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayoutGap="15px" fxLayoutAlign="center">
+        <button mat-mini-fab color="warn" matTooltip="CANCEL" (click)="onCancel()">
+          <mat-icon>clear</mat-icon>
+        </button>
+        <button type="submit" [mat-dialog-close]="pickUpForm.value" mat-mini-fab color="primary" matTooltip="SAVE">
+          <mat-icon>save_alt</mat-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

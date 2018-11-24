@@ -60,7 +60,7 @@ export class FreightsService {
     return this.httpClient.put(url, partial);
   }
 
-  fetchAllPartialsByFreightId(freightId: number) {
+  fetchAllPickUpsByFreightId(freightId: number) {
     const url = this.baseUrl + '/freights/' + freightId + '/pickups';
     return this.httpClient.get(url).subscribe((partials: PickUp[]) => {
       this.pickupsChanged.next(partials);

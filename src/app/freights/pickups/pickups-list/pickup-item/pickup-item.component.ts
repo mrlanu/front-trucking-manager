@@ -31,7 +31,7 @@ export class PickupItemComponent implements OnInit {
           this.pickUp = result;
           this.freightService.storeEditedPartial(this.freightId, this.pickUp)
             .subscribe(res => {
-                this.freightService.fetchAllPartialsByFreightId(this.freightId);
+                this.freightService.fetchAllPickUpsByFreightId(this.freightId);
               },
               err => {
                 console.log(err);

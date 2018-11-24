@@ -33,9 +33,12 @@
           </button>
         </div>
         <div fxFlex=""></div>
-        <div style="padding-right: 15px">
-          <button mat-mini-fab color="primary" matTooltip="ADD a Pick-UP" (click)="onAddPartial()">
+        <div style="padding-right: 15px" fxLayoutGap="10px">
+          <button mat-mini-fab color="primary" matTooltip="ADD a Pick-UP" (click)="onAddPickUp()">
             <mat-icon>local_shipping</mat-icon>
+          </button>
+          <button mat-mini-fab color="primary" matTooltip="ADD a Delivery" (click)="onAddDelivery()">
+            <mat-icon>beenhere</mat-icon>
           </button>
         </div>
       </mat-action-row>

@@ -22,7 +22,7 @@ export class PickupsListComponent implements OnInit {
       .subscribe((pickUps1: PickUp[]) => {
         this.pickUps = pickUps1;
       }));
-    this.freightService.fetchAllPartialsByFreightId(this.freightId);
+    this.freightService.fetchAllPickUpsByFreightId(this.freightId);
   }
 
 }
