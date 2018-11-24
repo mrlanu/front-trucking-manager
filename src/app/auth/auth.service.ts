@@ -53,6 +53,7 @@ export class AuthService {
 
   authSuccessfully() {
     this.authChange.next(true);
+    this.uiService.isLoadingChanged.next(false);
     this.isAuthenticated = true;
     this.router.navigate(['/freights']);
   }
@@ -79,6 +80,7 @@ export class AuthService {
       }, err => {
         this.uiService.openSnackBar('Invalid username or password', null, 3000);
         console.log(err);
+        this.uiService.isLoadingChanged.next(false);
       });
   }
 }

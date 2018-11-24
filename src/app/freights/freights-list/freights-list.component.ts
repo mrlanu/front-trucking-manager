@@ -5,7 +5,6 @@ import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/mat
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FreightsEditComponent} from '../freights-edit/freights-edit.component';
-import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-freights-list',
