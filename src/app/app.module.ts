@@ -24,6 +24,7 @@ import {AuthService} from './auth/auth.service';
 import {AuthInterceptor} from './shared/auth.interceptor';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
+import {UiService} from './shared/ui.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,10 @@ import { LoginComponent } from './auth/login/login.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [FreightsService, AuthService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [FreightsService,
+    AuthService,
+    UiService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],
   entryComponents: [FreightsEditComponent, PickupEditComponent]
 })

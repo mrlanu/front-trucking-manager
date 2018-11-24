@@ -5,11 +5,14 @@ import {AuthData} from './auth-data.model';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
+import {UiService} from '../shared/ui.service';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private router: Router, private httpClient: HttpClient) {}
+  constructor(private router: Router,
+              private httpClient: HttpClient,
+              private uiService: UiService) {}
 
   private user: User;
   authChange = new Subject<boolean>();
@@ -27,6 +30,7 @@ export class AuthService {
     this.httpClient.post(this.baseUrl + '/signup', authData).subscribe(user => {
       this.router.navigate(['/login']);
     }, err => {
+      this.uiService.openSnackBar(err.error.message, null, 3000);
       console.log(err);
     });
   }
@@ -73,6 +77,7 @@ export class AuthService {
         AuthService.saveToken(token);
         this.authSuccessfully();
       }, err => {
+        this.uiService.openSnackBar('Invalid username or password', null, 3000);
         console.log(err);
       });
   }
