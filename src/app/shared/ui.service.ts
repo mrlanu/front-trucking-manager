@@ -11,7 +11,8 @@ export class UiService {
 
   openSnackBar(message: string, action: string, duration: number) {
     this.snackBar.open(message, action, {
-      duration: duration
+      duration: duration,
+      panelClass: ['blue-snackbar']
     });
   }
 }

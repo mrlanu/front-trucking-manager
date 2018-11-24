@@ -28,9 +28,11 @@ export class AuthService {
 
   registerUser(authData: AuthData) {
     this.httpClient.post(this.baseUrl + '/signup', authData).subscribe(user => {
+      this.uiService.isLoadingChanged.next(false);
       this.router.navigate(['/login']);
     }, err => {
-      this.uiService.openSnackBar(err.error.message, null, 3000);
+      this.uiService.openSnackBar(err.error.message, null, 5000);
+      this.uiService.isLoadingChanged.next(false);
       console.log(err);
     });
   }
@@ -78,7 +80,7 @@ export class AuthService {
         AuthService.saveToken(token);
         this.authSuccessfully();
       }, err => {
-        this.uiService.openSnackBar('Invalid username or password', null, 3000);
+        this.uiService.openSnackBar('Invalid username or password', null, 5000);
         console.log(err);
         this.uiService.isLoadingChanged.next(false);
       });
