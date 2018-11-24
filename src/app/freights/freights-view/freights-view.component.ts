@@ -7,6 +7,7 @@ import {FreightsService} from '../freights.service';
 import {PickupEditComponent} from '../pickups/pickup-edit/pickup-edit.component';
 import {PickUp} from '../pickups/pickup.model';
 import {DeliveryAddComponent} from '../deliveries/delivery-add/delivery-add.component';
+import {Delivery} from '../deliveries/delivery.model';
 
 @Component({
   selector: 'app-freights-view',
@@ -17,6 +18,7 @@ export class FreightsViewComponent implements OnInit {
 
   @Input() freight: Freight;
   pickUp: PickUp;
+  delivery: Delivery;
 
   constructor(private router: Router,
               private dialog: MatDialog,
@@ -52,7 +54,7 @@ export class FreightsViewComponent implements OnInit {
       .subscribe(result => {
         if (result) {
           this.pickUp = result;
-          this.freightService.storePartial(this.freight.freightId, this.pickUp)
+          this.freightService.storePickUp(this.freight.freightId, this.pickUp)
             .subscribe(res => {
               this.freightService.fetchAllPickUpsByFreightId(this.freight.freightId);
               },
@@ -66,19 +68,26 @@ export class FreightsViewComponent implements OnInit {
   onAddDelivery() {
     const dialogRef = this.dialog.open(DeliveryAddComponent, {
       width: '900px',
-      data: {pickup: this.pickUp}
+      data: {
+        delivery: this.delivery,
+        freightId: this.freight.freightId
+      },
     });
     dialogRef.afterClosed()
       .subscribe(result => {
         if (result) {
-          this.pickUp = result;
-          this.freightService.storePartial(this.freight.freightId, this.pickUp)
-            .subscribe(res => {
-                this.freightService.fetchAllPickUpsByFreightId(this.freight.freightId);
-              },
-              err => {
-                console.log(err);
+          this.freightService.storeDelivery(this.freight.freightId, result.form)
+            .subscribe((storedDel: Delivery) => {
+              result.pickUps.forEach(pickUp => {
+                this.freightService.storeDeliveryForPickUp(pickUp.pickupId, storedDel)
+                  .subscribe(res => {
+                      console.log(res);
+                    },
+                    err => {
+                      console.log(err);
+                    });
               });
+          })
         }
       });
   }

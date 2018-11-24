@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
 import {PickUp} from './pickups/pickup.model';
+import {Delivery} from './deliveries/delivery.model';
 
 @Injectable()
 export class FreightsService {
@@ -50,12 +51,12 @@ export class FreightsService {
     });
   }
 
-  storePartial(freightId: number, partial: PickUp) {
+  storePickUp(freightId: number, partial: PickUp) {
     const url = this.baseUrl + '/freights/' + freightId + '/pickups';
     return this.httpClient.post(url, partial);
   }
 
-  storeEditedPartial(freightId: number, partial: PickUp) {
+  storeEditedPickUp(freightId: number, partial: PickUp) {
     const url = this.baseUrl + '/freights/' + freightId + '/pickups/' + partial.pickupId;
     return this.httpClient.put(url, partial);
   }
@@ -65,5 +66,15 @@ export class FreightsService {
     return this.httpClient.get(url).subscribe((partials: PickUp[]) => {
       this.pickupsChanged.next(partials);
     });
+  }
+
+  storeDeliveryForPickUp(pickUpId: number, delivery: Delivery) {
+    const url = this.baseUrl + '/pickups/' + pickUpId + '/deliveries';
+    return this.httpClient.post(url, delivery);
+  }
+
+  storeDelivery(freightId: number, delivery: Delivery) {
+    const url = this.baseUrl + '/freights/' + freightId + '/deliveries';
+    return this.httpClient.post(url, delivery);
   }
 }

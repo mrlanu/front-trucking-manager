@@ -29,7 +29,7 @@ export class PickupItemComponent implements OnInit {
       .subscribe(result => {
         if (result) {
           this.pickUp = result;
-          this.freightService.storeEditedPartial(this.freightId, this.pickUp)
+          this.freightService.storeEditedPickUp(this.freightId, this.pickUp)
             .subscribe(res => {
                 this.freightService.fetchAllPickUpsByFreightId(this.freightId);
               },

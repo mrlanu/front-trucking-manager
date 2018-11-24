@@ -4,9 +4,8 @@ import {MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource} from '@angular/materi
 import {PickUp} from '../../pickups/pickup.model';
 import {Subscription} from 'rxjs';
 import {FreightsService} from '../../freights.service';
-import {Freight} from '../../freight.model';
-import {Address} from '../../../shared/address.model';
 import {SelectionModel} from '@angular/cdk/collections';
+import {Delivery} from '../delivery.model';
 
 @Component({
   selector: 'app-delivery-add',
@@ -15,7 +14,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 })
 export class DeliveryAddComponent implements OnInit, OnDestroy {
 
-  pickUpForm: FormGroup;
+  deliveryForm: FormGroup;
   kinds: string[] = ['PICKUP', 'DELIVERY'];
   componentSubs: Subscription[] = [];
   dataSource = new MatTableDataSource<PickUp>();
@@ -33,9 +32,11 @@ export class DeliveryAddComponent implements OnInit, OnDestroy {
           this.dataSource.data = pickUps1;
           console.log(pickUps1);
         }));
-      this.freightService.fetchAllPickUpsByFreightId(1);
+      console.log('FreightId');
+      console.log(this.passedData.freightId);
+      this.freightService.fetchAllPickUpsByFreightId(this.passedData.freightId);
 
-    this.pickUpForm = new FormGroup({
+    this.deliveryForm = new FormGroup({
       'address': new FormGroup({
         'addressId': new FormControl(null),
         'address1': new FormControl(''),
@@ -44,8 +45,8 @@ export class DeliveryAddComponent implements OnInit, OnDestroy {
         'state': new FormControl(''),
         'zip': new FormControl('')
       }),
-      'pickupId': new FormControl(''),
-      'kind': new FormControl('PICKUP'),
+      'deliveryId': new FormControl(''),
+      'kind': new FormControl('DELIVERY'),
       'date': new FormControl(new Date()),
       'time': new FormControl(''),
       'trailer': new FormControl(''),
@@ -54,29 +55,29 @@ export class DeliveryAddComponent implements OnInit, OnDestroy {
       'status': new FormControl('UNSCHEDULED')
     });
 
-    if (this.passedData.pickup) {
-      this.setFormValueForEditPartial(this.passedData.pickup);
-      /*this.editMode = true;*/
-    }
+    /*if (this.passedData.delivery) {
+      this.setFormValueForEditDelivery(this.passedData.delivery);
+      /!*this.editMode = true;*!/
+    }*/
   }
 
-  setFormValueForEditPartial(partial: PickUp) {
-    this.pickUpForm.setValue({
+  setFormValueForEditDelivery(delivery: Delivery) {
+    this.deliveryForm.setValue({
       'address': {
-        addressId: partial.address.addressId,
-        address1: partial.address.address1,
-        address2: partial.address.address2,
-        city: partial.address.city,
-        state: partial.address.state,
-        zip: partial.address.zip},
-      'pickupId': partial.pickupId,
-      'kind': partial.kind,
-      date: new Date(partial.date),
-      'time': partial.time,
-      'trailer': partial.trailer,
-      'description': partial.description,
-      'location': partial.location,
-      'status': partial.status
+        addressId: delivery.address.addressId,
+        address1: delivery.address.address1,
+        address2: delivery.address.address2,
+        city: delivery.address.city,
+        state: delivery.address.state,
+        zip: delivery.address.zip},
+      'deliveryId': delivery.deliveryId,
+      'kind': delivery.kind,
+      'date': new Date(delivery.date),
+      'time': delivery.time,
+      'trailer': delivery.trailer,
+      'description': delivery.description,
+      'location': delivery.location,
+      'status': delivery.status
     });
   }
 

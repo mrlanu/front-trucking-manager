@@ -50,7 +50,7 @@
     </table>
   </div>
   <div>
-    <form [formGroup]="pickUpForm" fxLayout="column">
+    <form [formGroup]="deliveryForm" fxLayout="column">
       <div class="container" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="100px">
         <div class="info" fxLayout="column" fxLayoutGap="10px">
 
@@ -105,7 +105,7 @@
         <button mat-mini-fab color="warn" matTooltip="CANCEL" (click)="onCancel()">
           <mat-icon>clear</mat-icon>
         </button>
-        <button type="submit" [mat-dialog-close]="pickUpForm.value" mat-mini-fab color="primary" matTooltip="SAVE">
+        <button type="submit" [mat-dialog-close]="{'form': deliveryForm.value, 'pickUps': selection.selected}" mat-mini-fab color="primary" matTooltip="SAVE">
           <mat-icon>save_alt</mat-icon>
         </button>
       </div>
