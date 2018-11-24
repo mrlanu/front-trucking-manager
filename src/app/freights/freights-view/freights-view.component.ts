@@ -51,10 +51,9 @@ export class FreightsViewComponent implements OnInit {
       data: {pickup: this.pickUp}
     });
     dialogRef.afterClosed()
-      .subscribe(result => {
-        if (result) {
-          this.pickUp = result;
-          this.freightService.storePickUp(this.freight.freightId, this.pickUp)
+      .subscribe(pickUp => {
+        if (pickUp) {
+          this.freightService.storePickUp(this.freight.freightId, pickUp)
             .subscribe(res => {
               this.freightService.fetchAllPickUpsByFreightId(this.freight.freightId);
               },
@@ -73,12 +72,13 @@ export class FreightsViewComponent implements OnInit {
         freightId: this.freight.freightId
       },
     });
+    this.delivery = null;
     dialogRef.afterClosed()
-      .subscribe(result => {
-        if (result) {
-          this.freightService.storeDelivery(this.freight.freightId, result.form)
+      .subscribe(del => {
+        if (del) {
+          this.freightService.storeDelivery(this.freight.freightId, del.form)
             .subscribe((storedDel: Delivery) => {
-              result.pickUps.forEach(pickUp => {
+              del.pickUps.forEach(pickUp => {
                 this.freightService.storeDeliveryForPickUp(pickUp.pickupId, storedDel)
                   .subscribe(res => {
                       console.log(res);
@@ -87,7 +87,7 @@ export class FreightsViewComponent implements OnInit {
                       console.log(err);
                     });
               });
-          })
+          });
         }
       });
   }
