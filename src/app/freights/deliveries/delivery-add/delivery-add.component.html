@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutGap="40px">
-  <div style="padding-left: 80px; padding-top: 40px">Select which pick up should be delivery ?</div>
+  <div style="padding-left: 80px; padding-top: 40px">Choose which pick-up will be delivered...</div>
   <div fxLayout="row" fxFlexAlign="center" style="width: 83%">
     <table mat-table [dataSource]="dataSource">
 
@@ -21,7 +21,19 @@
         </td>
       </ng-container>
 
-      <!-- Position Column -->
+      <!-- Date Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.date | date: 'MMM dd yyyy'}} </td>
+      </ng-container>
+
+      <!-- Time Column -->
+      <ng-container matColumnDef="time">
+        <th mat-header-cell *matHeaderCellDef> Time </th>
+        <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+      </ng-container>
+
+      <!-- Address Column -->
       <ng-container matColumnDef="address">
         <th mat-header-cell *matHeaderCellDef> Address </th>
         <td mat-cell *matCellDef="let element">
@@ -29,18 +41,6 @@
           {{ element.address.city}}, {{ element.address.state}}
           {{ element.address.zip}}
         </td>
-      </ng-container>
-
-      <!-- Weight Column -->
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef> Date </th>
-        <td mat-cell *matCellDef="let element"> {{element.date}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="time">
-        <th mat-header-cell *matHeaderCellDef> Time </th>
-        <td mat-cell *matCellDef="let element"> {{element.time}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

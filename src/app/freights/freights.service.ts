@@ -77,4 +77,9 @@ export class FreightsService {
     const url = this.baseUrl + '/freights/' + freightId + '/deliveries';
     return this.httpClient.post(url, delivery);
   }
+
+  deleteFreight(freight: Freight) {
+    const url = this.baseUrl + '/freights/' + freight.freightId ;
+    return this.httpClient.delete(url);
+  }
 }

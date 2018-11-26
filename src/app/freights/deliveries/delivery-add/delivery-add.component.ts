@@ -18,7 +18,7 @@ export class DeliveryAddComponent implements OnInit, OnDestroy {
   kinds: string[] = ['PICKUP', 'DELIVERY'];
   componentSubs: Subscription[] = [];
   dataSource = new MatTableDataSource<PickUp>();
-  displayedColumns = ['select', 'address', 'date', 'time'];
+  displayedColumns = ['select', 'date', 'time', 'address'];
   selection = new SelectionModel<PickUp>(true, []);
 
   constructor(public dialogRef: MatDialogRef<DeliveryAddComponent>,

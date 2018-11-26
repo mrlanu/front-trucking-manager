@@ -26,6 +26,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import {UiService} from './shared/ui.service';
 import { DeliveryAddComponent } from './freights/deliveries/delivery-add/delivery-add.component';
+import {DeleteConfirmComponent} from './shared/delete-confirm.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { DeliveryAddComponent } from './freights/deliveries/delivery-add/deliver
     FreightsViewComponent,
     SignupComponent,
     LoginComponent,
-    DeliveryAddComponent
+    DeliveryAddComponent,
+    DeleteConfirmComponent
   ],
   imports: [
     MaterialModule,
@@ -60,6 +62,6 @@ import { DeliveryAddComponent } from './freights/deliveries/delivery-add/deliver
     UiService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],
-  entryComponents: [FreightsEditComponent, PickupEditComponent, DeliveryAddComponent]
+  entryComponents: [FreightsEditComponent, PickupEditComponent, DeliveryAddComponent, DeleteConfirmComponent]
 })
 export class AppModule { }

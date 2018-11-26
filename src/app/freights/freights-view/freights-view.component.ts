@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Freight} from '../freight.model';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
@@ -8,17 +8,20 @@ import {PickupEditComponent} from '../pickups/pickup-edit/pickup-edit.component'
 import {PickUp} from '../pickups/pickup.model';
 import {DeliveryAddComponent} from '../deliveries/delivery-add/delivery-add.component';
 import {Delivery} from '../deliveries/delivery.model';
+import {DeleteConfirmComponent} from '../../shared/delete-confirm.component';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-freights-view',
   templateUrl: './freights-view.component.html',
   styleUrls: ['./freights-view.component.css']
 })
-export class FreightsViewComponent implements OnInit {
+export class FreightsViewComponent implements OnInit, OnDestroy {
 
   @Input() freight: Freight;
   pickUp: PickUp;
   delivery: Delivery;
+  componentSubs: Subscription[] = [];
 
   constructor(private router: Router,
               private dialog: MatDialog,
@@ -90,5 +93,28 @@ export class FreightsViewComponent implements OnInit {
           });
         }
       });
+  }
+
+  onDeleteFreight() {
+    const dialogRef = this.dialog.open(DeleteConfirmComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.componentSubs.push(this.freightService.deleteFreight(this.freight)
+          .subscribe(res => {
+            this.freightService.fetchAllFreights();
+            this.router.navigate(['/freights']);
+          }, err => {
+            console.log(err);
+          }));
+      } else {
+        dialogRef.close();
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.componentSubs.forEach(subs => {
+      subs.unsubscribe();
+    });
   }
 }
