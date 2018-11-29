@@ -33,7 +33,6 @@ export class AuthService {
     }, err => {
       this.uiService.openSnackBar(err.error.message, null, 5000);
       this.uiService.isLoadingChanged.next(false);
-      console.log(err);
     });
   }
 
@@ -81,7 +80,6 @@ export class AuthService {
         this.authSuccessfully();
       }, err => {
         this.uiService.openSnackBar('Invalid username or password', null, 5000);
-        console.log(err);
         this.uiService.isLoadingChanged.next(false);
       });
   }

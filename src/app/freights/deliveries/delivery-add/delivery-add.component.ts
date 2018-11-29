@@ -15,6 +15,7 @@ import {Delivery} from '../delivery.model';
 export class DeliveryAddComponent implements OnInit, OnDestroy {
 
   deliveryForm: FormGroup;
+  editMode = false;
   kinds: string[] = ['PICKUP', 'DELIVERY'];
   componentSubs: Subscription[] = [];
   dataSource = new MatTableDataSource<PickUp>();
@@ -30,10 +31,7 @@ export class DeliveryAddComponent implements OnInit, OnDestroy {
       this.componentSubs.push(this.freightService.pickupsChanged
         .subscribe((pickUps1: PickUp[]) => {
           this.dataSource.data = pickUps1;
-          console.log(pickUps1);
         }));
-      console.log('FreightId');
-      console.log(this.passedData.freightId);
       this.freightService.fetchAllPickUpsByFreightId(this.passedData.freightId);
 
     this.deliveryForm = new FormGroup({
@@ -55,10 +53,10 @@ export class DeliveryAddComponent implements OnInit, OnDestroy {
       'status': new FormControl('UNSCHEDULED')
     });
 
-    /*if (this.passedData.delivery) {
+    if (this.passedData.delivery) {
       this.setFormValueForEditDelivery(this.passedData.delivery);
-      /!*this.editMode = true;*!/
-    }*/
+      this.editMode = true;
+    }
   }
 
   setFormValueForEditDelivery(delivery: Delivery) {

@@ -23,14 +23,27 @@
         </div>
         <div>Time: <span>{{ pickUp.time}}</span></div>
         <div>Description: <span>{{ pickUp.description}}</span></div>
-
         <div *ngIf="pickUp.status == 'Completed'" style="color: blue">
           Completed
         </div>
       </section>
+      <hr>
+      <br>
+      <div *ngFor="let del of pickUp.deliveryList; let i = index">
+        <a (click)="onEditDelivery(del)" style="cursor: pointer">
+          <div>Delivery {{ i + 1 }} : <span>{{ del.date | date: 'MMM dd yyyy' }}, </span>
+            <span> {{ del.time}}</span></div>
+          <div>Address: <span>{{ del.address.address1}} {{ del.address.address2}}
+                            {{ del.address.city}}, {{ del.address.state}}
+                            {{ del.address.zip}}
+                        </span>
+          </div>
+        </a>
+        <br>
+      </div>
       <mat-action-row fxLayoutGap="10px">
         <div fxLayoutGap="10px">
-          <button mat-mini-fab color="primary" matTooltip="EDIT" (click)="onEditPartial()" [disabled]="employeeMode">
+          <button mat-mini-fab color="primary" matTooltip="EDIT" (click)="onEditPickUp()" [disabled]="employeeMode">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-mini-fab color="primary" matTooltip="COMPLETE" (click)="onCompleteTask(task.id)">
